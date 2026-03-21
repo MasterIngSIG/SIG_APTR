@@ -41,11 +41,9 @@ leyenda.onAdd = function () {
     '<span style="background:#fe1900"></span> Exposición grave<br>' +
     '<span style="background:#fdae61"></span> Exposición leve<br>' +
     '<span style="background:#66bd63"></span> No exposición<br><br>' +
-
     "<h4>Servicios</h4>" +
     "🏥 Hospital<br>" +
     "🐶 Veterinaria<br><br>" +
-
     "<h4>Proximidad</h4>" +
     '<span style="background:#2b8cbe"></span> Centro / radio';
 
@@ -75,6 +73,9 @@ var modoRadioActivo = false;
 var puntoAnalisis = null;
 var marcadorAnalisis = null;
 var circuloAnalisis = null;
+
+// Panel móvil
+var panelMobileAbierto = false;
 
 // =============================
 // UTILIDADES
@@ -257,6 +258,58 @@ function definirPuntoAnalisis(latlng) {
   aplicarFiltros();
 }
 
+function esMovil() {
+  return window.innerWidth <= 640;
+}
+
+function abrirPanelMobile() {
+  if (!esMovil()) return;
+
+  var panel = document.getElementById("panel-filtros");
+  var boton = document.getElementById("btnTogglePanelMobile");
+
+  panel.classList.add("abierto");
+  panelMobileAbierto = true;
+
+  if (boton) {
+    boton.setAttribute("aria-expanded", "true");
+  }
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 260);
+}
+
+function cerrarPanelMobile() {
+  var panel = document.getElementById("panel-filtros");
+  var boton = document.getElementById("btnTogglePanelMobile");
+
+  panel.classList.remove("abierto");
+  panelMobileAbierto = false;
+
+  if (boton) {
+    boton.setAttribute("aria-expanded", "false");
+  }
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 260);
+}
+
+function alternarPanelMobile() {
+  if (panelMobileAbierto) {
+    cerrarPanelMobile();
+  } else {
+    abrirPanelMobile();
+  }
+}
+
+function cerrarPanelSiMovil() {
+  if (esMovil()) {
+    cerrarPanelMobile();
+  }
+}
+
 // =============================
 // DIBUJO DE CAPAS
 // =============================
@@ -268,7 +321,7 @@ function dibujarAgresiones(coleccion) {
   capaAgresiones = L.geoJSON(coleccion, {
     pointToLayer: function (feature, latlng) {
       return L.circleMarker(latlng, {
-        radius: 7,
+        radius: esMovil() ? 8 : 7,
         fillColor: colorPorAgresion(feature.properties.TIPO_DE_EXPOSICION),
         color: "#2c3e50",
         weight: 1.5,
@@ -283,6 +336,10 @@ function dibujarAgresiones(coleccion) {
         if (modoRadioActivo) {
           definirPuntoAnalisis(layer.getLatLng());
         }
+      });
+
+      layer.on("popupopen", function () {
+        cerrarPanelSiMovil();
       });
     }
   }).addTo(map);
@@ -308,8 +365,8 @@ function dibujarVeterinarias() {
         icon: L.divIcon({
           html: "🐶",
           className: "icono-servicio",
-          iconSize: [34, 34],
-          iconAnchor: [17, 34]
+          iconSize: esMovil() ? [32, 32] : [34, 34],
+          iconAnchor: esMovil() ? [16, 32] : [17, 34]
         })
       });
     },
@@ -321,6 +378,10 @@ function dibujarVeterinarias() {
         if (modoRadioActivo) {
           definirPuntoAnalisis(layer.getLatLng());
         }
+      });
+
+      layer.on("popupopen", function () {
+        cerrarPanelSiMovil();
       });
     }
   }).addTo(map);
@@ -345,8 +406,8 @@ function dibujarHospitales() {
         icon: L.divIcon({
           html: "🏥",
           className: "icono-servicio",
-          iconSize: [34, 34],
-          iconAnchor: [17, 34]
+          iconSize: esMovil() ? [32, 32] : [34, 34],
+          iconAnchor: esMovil() ? [16, 32] : [17, 34]
         })
       });
     },
@@ -361,6 +422,10 @@ function dibujarHospitales() {
         if (modoRadioActivo) {
           definirPuntoAnalisis(layer.getLatLng());
         }
+      });
+
+      layer.on("popupopen", function () {
+        cerrarPanelSiMovil();
       });
     }
   }).addTo(map);
@@ -391,7 +456,7 @@ function actualizarControlCapas() {
   if (marcadorAnalisis) overlays["Centro de análisis"] = marcadorAnalisis;
 
   controlCapas = L.control.layers(baseLayers, overlays, {
-    collapsed: false
+    collapsed: esMovil()
   }).addTo(map);
 }
 
@@ -544,6 +609,12 @@ function ajustarVistaInicial() {
   }
 }
 
+function refrescarMapa() {
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 250);
+}
+
 function cargarTodo() {
   Promise.all([
     fetchGeoJSON([
@@ -573,6 +644,7 @@ function cargarTodo() {
       actualizarTextoBotones();
       actualizarControlCapas();
       ajustarVistaInicial();
+      refrescarMapa();
     })
     .catch(function (error) {
       console.error("Error cargando capas:", error);
@@ -586,9 +658,21 @@ function cargarTodo() {
 document.addEventListener("DOMContentLoaded", function () {
   cargarTodo();
 
-  document.getElementById("filtroMunicipio").addEventListener("change", aplicarFiltros);
-  document.getElementById("filtroTipo").addEventListener("change", aplicarFiltros);
-  document.getElementById("filtroEspecie").addEventListener("change", aplicarFiltros);
+  document.getElementById("filtroMunicipio").addEventListener("change", function () {
+    aplicarFiltros();
+    cerrarPanelSiMovil();
+  });
+
+  document.getElementById("filtroTipo").addEventListener("change", function () {
+    aplicarFiltros();
+    cerrarPanelSiMovil();
+  });
+
+  document.getElementById("filtroEspecie").addEventListener("change", function () {
+    aplicarFiltros();
+    cerrarPanelSiMovil();
+  });
+
   document.getElementById("filtroTexto").addEventListener("input", aplicarFiltros);
 
   document.getElementById("filtroRadio").addEventListener("input", function () {
@@ -604,18 +688,21 @@ document.addEventListener("DOMContentLoaded", function () {
     soloGravesActivo = !soloGravesActivo;
     actualizarTextoBotones();
     aplicarFiltros();
+    cerrarPanelSiMovil();
   });
 
   document.getElementById("btnToggleHospitales").addEventListener("click", function () {
     hospitalesVisibles = !hospitalesVisibles;
     actualizarTextoBotones();
     dibujarHospitales();
+    cerrarPanelSiMovil();
   });
 
   document.getElementById("btnToggleVeterinarias").addEventListener("click", function () {
     veterinariasVisibles = !veterinariasVisibles;
     actualizarTextoBotones();
     dibujarVeterinarias();
+    cerrarPanelSiMovil();
   });
 
   document.getElementById("btnModoRadio").addEventListener("click", function () {
@@ -626,6 +713,7 @@ document.addEventListener("DOMContentLoaded", function () {
       actualizarEstadoProximidad(
         "Modo radio activo: haga clic en el mapa o en un elemento para definir el centro."
       );
+      cerrarPanelSiMovil();
     } else {
       limpiarAnalisisProximidad();
       actualizarEstadoProximidad("Modo radio inactivo");
@@ -633,11 +721,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  document.getElementById("btnLimpiar").addEventListener("click", limpiarFiltros);
+  document.getElementById("btnLimpiar").addEventListener("click", function () {
+    limpiarFiltros();
+    cerrarPanelSiMovil();
+  });
+
+  document.getElementById("btnTogglePanelMobile").addEventListener("click", alternarPanelMobile);
+  document.getElementById("btnCerrarPanelMobile").addEventListener("click", cerrarPanelMobile);
 
   map.on("click", function (e) {
     if (modoRadioActivo) {
       definirPuntoAnalisis(e.latlng);
+      cerrarPanelSiMovil();
+    }
+  });
+
+  window.addEventListener("resize", function () {
+    actualizarControlCapas();
+    refrescarMapa();
+
+    if (!esMovil()) {
+      document.getElementById("panel-filtros").classList.remove("abierto");
+      panelMobileAbierto = false;
     }
   });
 });
