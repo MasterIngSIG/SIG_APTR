@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIG Agresiones APTR</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside id="panel-filtros" class="panel-filtros">
+      <h2 class="titulo-principal">
+        SIG AGRESIONES DE ANIMALES POTENCIALMENTE TRANSMISORES DE RABIA
+      </h2>
+
+      <h3>Filtros del mapa</h3>
+
+      <label for="filtroMunicipio">Municipio</label>
+      <select id="filtroMunicipio">
+        <option value="">Todos</option>
+      </select>
+
+      <label for="filtroTipo">Tipo de exposición</label>
+      <select id="filtroTipo">
+        <option value="">Todos</option>
+      </select>
+
+      <label for="filtroEspecie">Especie</label>
+      <select id="filtroEspecie">
+        <option value="">Todas</option>
+      </select>
+
+      <label for="filtroTexto">Búsqueda por dirección u observación</label>
+      <input
+        type="text"
+        id="filtroTexto"
+        placeholder="Escriba una palabra..."
+      >
+
+      <label for="filtroRadio">
+        Radio de búsqueda: <span id="valorRadio">500</span> m
+      </label>
+      <input
+        type="range"
+        id="filtroRadio"
+        min="100"
+        max="2000"
+        step="100"
+        value="500"
+      >
+
+      <small class="texto-ayuda">
+        Active el modo radio y haga clic en el mapa o en un elemento para definir
+        el centro del análisis de proximidad.
+      </small>
+
+      <div class="grupo-botones">
+        <button id="btnSoloGraves" type="button">Solo graves</button>
+        <button id="btnToggleHospitales" type="button">Ocultar hospitales</button>
+        <button id="btnToggleVeterinarias" type="button">Ocultar veterinarias</button>
+        <button id="btnModoRadio" type="button">Activar radio</button>
+        <button id="btnLimpiar" type="button" class="secundario">Limpiar filtros</button>
+      </div>
+
+      <div id="estadoProximidad" class="estado-proximidad">
+        Modo radio inactivo
+      </div>
+
+      <div id="contadorResultados" class="contador-resultados">
+        Casos visibles: 0
+      </div>
+    </aside>
+
+    <div class="map-wrapper">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

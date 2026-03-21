@@ -1,0 +1,880 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-10-01T18:29:27Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "relation/15652661",
+        "amenity": "hospital",
+        "name": "Hospital San Vicente de Paul",
+        "operator": "E.S.E",
+        "type": "multipolygon",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6618886,
+          4.6723126
+        ]
+      },
+      "id": "relation/15652661"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "relation/15652662",
+        "addr:city": "Filandia",
+        "addr:country": "CO",
+        "addr:full": "Calle 7 No. 7-55",
+        "addr:housename": "Hospìtal Mental Filandia",
+        "addr:housenumber": "7-55",
+        "addr:street": "Calle 7",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Hospital Mental Filandia",
+        "operator": "E.S.E",
+        "type": "multipolygon",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6585692,
+          4.6770996
+        ]
+      },
+      "id": "relation/15652662"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/266072201",
+        "amenity": "hospital",
+        "emergency": "yes",
+        "healthcare": "hospital",
+        "is_in:city": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "Hospital San Juan de Dios",
+        "name:es": "Hospital San Juan de Dios",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6561521,
+          4.5560729
+        ]
+      },
+      "id": "way/266072201"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/294092800",
+        "amenity": "hospital",
+        "building": "yes",
+        "is_in": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "Centro de Salud Quindos",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7030039,
+          4.5220554
+        ]
+      },
+      "id": "way/294092800"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/295171112",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Cruz Roja Hemocentro",
+        "operator": "Cruz Roja Colombiana",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6545551,
+          4.5609932
+        ]
+      },
+      "id": "way/295171112"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/295539299",
+        "amenity": "hospital",
+        "building": "yes",
+        "building:levels": "2",
+        "emergency": "yes",
+        "healthcare": "hospital",
+        "name": "Sociedad Cardiovascular del Eje Cafetero",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6623236,
+          4.5472519
+        ]
+      },
+      "id": "way/295539299"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/297584198",
+        "amenity": "hospital",
+        "building": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Salud La Clarita",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6858342,
+          4.5403127
+        ]
+      },
+      "id": "way/297584198"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/298451199",
+        "amenity": "hospital",
+        "building": "yes",
+        "healthcare": "hospital",
+        "name": "EPS Sanitas",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6623687,
+          4.5446325
+        ]
+      },
+      "id": "way/298451199"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/301184918",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Atención Ambulatoria del Sur",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6853423,
+          4.5226828
+        ]
+      },
+      "id": "way/301184918"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/301997330",
+        "amenity": "hospital",
+        "building": "yes",
+        "healthcare:speciality": "psychiatry",
+        "name": "Hospital Mental de Filandia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6700952,
+          4.5434592
+        ]
+      },
+      "id": "way/301997330"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/302126135",
+        "amenity": "hospital",
+        "is_in": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "Centro de Salud Santa Rita",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7048645,
+          4.5189654
+        ]
+      },
+      "id": "way/302126135"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/302511697",
+        "amenity": "hospital",
+        "building": "yes",
+        "healthcare": "hospital",
+        "name": "IPS Salud del Caribe",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6896425,
+          4.5195583
+        ]
+      },
+      "id": "way/302511697"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/303555440",
+        "amenity": "hospital",
+        "building": "hospital",
+        "healthcare": "hospital",
+        "is_in": "La Tebaida",
+        "name": "Pio X",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7826597,
+          4.4518431
+        ]
+      },
+      "id": "way/303555440"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/304147090",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Salud Alfonso Correa Grillo",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.710055,
+          4.527955
+        ]
+      },
+      "id": "way/304147090"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/306609910",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "is_in:city": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "Centro de Salud Nueva Libertad",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6994188,
+          4.535263
+        ]
+      },
+      "id": "way/306609910"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/308547107",
+        "amenity": "hospital",
+        "contact:email": "cspilotouribe@redsaludarmenia.gov.co",
+        "contact:phone": "+57 3136863258",
+        "description": "Medicina General - Enfermería - Vacunación - Odontología/Rayos X - Laboratorio - Terapia - Medicamentos",
+        "healthcare": "hospital",
+        "is_in": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "Centro de Salud Piloto Uribe",
+        "opening_hours": "Mo-Th 07:00-12:00,14:00-18:00; Fr 07:00-12:00,14:00-17:00",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6744863,
+          4.5292216
+        ]
+      },
+      "id": "way/308547107"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/308547110",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Unidad Intermedia Hospital del Sur",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7018027,
+          4.5152486
+        ]
+      },
+      "id": "way/308547110"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/318898690",
+        "amenity": "hospital",
+        "contact:email": "cdelparque@telecom.com.co",
+        "contact:phone": "+57 6 7464920",
+        "contact:website": "http://clinicadelparque.com.co",
+        "is_in": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "Clínica del Parque",
+        "opening_hours": "24/7",
+        "operator": "Mediservicios S.A."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6629953,
+          4.5446278
+        ]
+      },
+      "id": "node/318898690"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/319015469",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "is_in": "Armenia",
+        "is_in:state": "Quindío",
+        "name": "Centro de Salud Miraflores",
+        "operator": "Red Salud Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6872807,
+          4.5323823
+        ]
+      },
+      "id": "way/319015469"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/324606442",
+        "amenity": "hospital",
+        "contact:phone": "+57 6 7422070",
+        "contact:website": "http://hospitalcalarca.gov.co/main-pagina-cat-215.htm",
+        "description": "Medicina General - Enfermería - Vacunación - Odontología - Laboratorio",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "is_in:town": "Calarcá",
+        "name": "Centro de Salud Balcones",
+        "operator": "E.S.E. Hospital La Misericordia",
+        "wheelchair": "yes",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6546359,
+          4.5169049
+        ]
+      },
+      "id": "way/324606442"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/324877763",
+        "amenity": "hospital",
+        "building": "yes",
+        "name": "Puesto de salud",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7081109,
+          4.7067433
+        ]
+      },
+      "id": "way/324877763"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/347696333",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Salud Barcelona",
+        "operator": "E.S.E. Hospital La Misericordia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7169052,
+          4.4288423
+        ]
+      },
+      "id": "way/347696333"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/436969637",
+        "addr:city": "Montenegro",
+        "addr:housenumber": "km 1 via Montenegro - Armenia",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "is_in:town": "Montenegro",
+        "name": "Hospital Roberto Quintero Villa",
+        "operator": "Gobierno",
+        "operator:type": "public/government",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7486215,
+          4.5582721
+        ]
+      },
+      "id": "way/436969637"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/437687809",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "is_in:country": "Colombia",
+        "is_in:neighbourhood": "San José",
+        "is_in:state": "Quindío",
+        "is_in:town": "Quimbaya",
+        "name": "Sagrado Corazón de Jesús",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7654314,
+          4.6209627
+        ]
+      },
+      "id": "way/437687809"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/437689244",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7654141,
+          4.6211032
+        ]
+      },
+      "id": "way/437689244"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/438906546",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Hospital San Vicente de Paul",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6376686,
+          4.6187698
+        ]
+      },
+      "id": "way/438906546"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/471994438",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Hospital San Vicente de Paul",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7873285,
+          4.2094919
+        ]
+      },
+      "id": "way/471994438"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/525229883",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Salud Simón Bolívar",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6396518,
+          4.5256947
+        ]
+      },
+      "id": "way/525229883"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/525230754",
+        "amenity": "hospital",
+        "name": "Cruz Roja",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6389137,
+          4.5352571
+        ]
+      },
+      "id": "way/525230754"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/532613802",
+        "addr:city": "Salento",
+        "addr:postcode": "631020",
+        "addr:street": "Calle 7",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Hospital San Vicente de Paul"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.570895,
+          4.6364789
+        ]
+      },
+      "id": "node/532613802"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/555254807",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Hospital Militar",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6504532,
+          4.5571829
+        ]
+      },
+      "id": "way/555254807"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/585528372",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Hospital La Misericordia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6408704,
+          4.5333089
+        ]
+      },
+      "id": "way/585528372"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/638894084",
+        "amenity": "hospital",
+        "building": "yes",
+        "healthcare": "hospital",
+        "name": "Centro de salud La Virginia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6443097,
+          4.4918569
+        ]
+      },
+      "id": "way/638894084"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/645696093",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de salud Pueblo Tapao",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7844391,
+          4.5159227
+        ]
+      },
+      "id": "way/645696093"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1323986639",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Salud El Caimo",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7115462,
+          4.4711893
+        ]
+      },
+      "id": "way/1323986639"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1382407854",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Unidad de Atención Integral a Conductas Adictivas",
+        "short_name": "UAICA",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6580235,
+          4.6774397
+        ]
+      },
+      "id": "way/1382407854"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1389547245",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Clínica La Sagrada Familia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.668175,
+          4.5386105
+        ]
+      },
+      "id": "way/1389547245"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1394801528",
+        "addr:city": "Armenia",
+        "addr:housenumber": "#15-02",
+        "addr:street": "Calle 2da. Norte",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Nueva EPS",
+        "website": "https://nuevaeps.com.co/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6629231,
+          4.5452383
+        ]
+      },
+      "id": "node/1394801528"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/1394834665",
+        "amenity": "hospital",
+        "name": "Clínica La Providencia"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6593265,
+          4.5514053
+        ]
+      },
+      "id": "node/1394834665"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1425976598",
+        "amenity": "hospital",
+        "building": "yes",
+        "name": "Cruz Roja Colombiana Seccional Quindío - Unidad Municipal La Tebaida",
+        "operator": "Cruz Roja",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.7919352,
+          4.4517719
+        ]
+      },
+      "id": "way/1425976598"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2752206417",
+        "addr:city": "Armenia",
+        "addr:country": "CO",
+        "addr:street": "Carrera 14",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "AsmetSalud",
+        "operator": "Asmetsalud"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6581342,
+          4.5522056
+        ]
+      },
+      "id": "node/2752206417"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3196341699",
+        "amenity": "hospital",
+        "is_in": "Córdoba",
+        "is_in:country": "Colombia",
+        "is_in:state": "Quindío",
+        "name": "San Roque"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6870912,
+          4.3899067
+        ]
+      },
+      "id": "node/3196341699"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12585082250",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "EPS Sura"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6596266,
+          4.5503089
+        ]
+      },
+      "id": "node/12585082250"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12955197827",
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Centro de Especialistas"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6628805,
+          4.5450638
+        ]
+      },
+      "id": "node/12955197827"
+    }
+  ]
+}

@@ -1,0 +1,445 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-10-01T18:31:32Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/295539342",
+        "amenity": "veterinary",
+        "building": "yes",
+        "name": "Dra. Pets",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6613702,
+          4.5489532
+        ]
+      },
+      "id": "way/295539342"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/303417304",
+        "addr:city": "Armenia",
+        "addr:housenumber": "14 - 17",
+        "addr:postcode": "630004",
+        "addr:street": "Calle 14",
+        "amenity": "veterinary",
+        "building": "yes",
+        "name": "Dra. Arka Heart",
+        "opening_hours": "Mo-Sa 08:00-20:00",
+        "phone": "+57 314 3877245",
+        "website": "https://consultorio-veterinario-dra-arca-heart.negocio.site/",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6701969,
+          4.5356879
+        ]
+      },
+      "id": "way/303417304"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/326305307",
+        "amenity": "veterinary",
+        "building": "house",
+        "building:levels": "2",
+        "building:material": "concrete",
+        "name": "El Bosque",
+        "roof:material": "roof_tiles",
+        "roof:orientation": "across",
+        "roof:shape": "gabled",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6678608,
+          4.5409688
+        ]
+      },
+      "id": "way/326305307"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/330998307",
+        "amenity": "veterinary",
+        "building": "yes",
+        "name": "Hospital Veterinario de Armenia",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6802242,
+          4.5397399
+        ]
+      },
+      "id": "way/330998307"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/351930784",
+        "amenity": "veterinary",
+        "building": "yes",
+        "name": "Dog center",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6583527,
+          4.5514711
+        ]
+      },
+      "id": "way/351930784"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/355831667",
+        "amenity": "veterinary",
+        "building": "yes",
+        "name": "Can & Kat",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6598672,
+          4.5516771
+        ]
+      },
+      "id": "way/355831667"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/543348393",
+        "amenity": "veterinary",
+        "building": "yes",
+        "name": "Animal House",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6601764,
+          4.5139767
+        ]
+      },
+      "id": "way/543348393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2738667076",
+        "amenity": "veterinary",
+        "name": "Diver Mascotas"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6586608,
+          4.6750023
+        ]
+      },
+      "id": "node/2738667076"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2738667094",
+        "amenity": "veterinary",
+        "name": "La granja"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.658844,
+          4.6755795
+        ]
+      },
+      "id": "node/2738667094"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2771029198",
+        "amenity": "veterinary",
+        "name": "Guardería Canina"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6256345,
+          4.6212604
+        ]
+      },
+      "id": "node/2771029198"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3445710867",
+        "amenity": "veterinary",
+        "contact:phone": "+57 6 7467898",
+        "description": "Urgencias 24 horas - Grandes y pequeños animales",
+        "name": "Clínica Veterinaria Bull Jovi"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6696078,
+          4.5449491
+        ]
+      },
+      "id": "node/3445710867"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3470475112",
+        "amenity": "veterinary",
+        "contact:phone": "+57 6 7402886",
+        "is_in": "Armenia",
+        "is_in:country": "Colombia",
+        "is_in:neighbourhood": "El Bosque",
+        "is_in:state": "Quindío",
+        "name": "Clínica Veterinaria El Bosque",
+        "opening_hours": "24/7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6766094,
+          4.5388344
+        ]
+      },
+      "id": "node/3470475112"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3570301178",
+        "amenity": "veterinary",
+        "contact:phone": "+57 6 7455153",
+        "contact:website": "http://www.cimev.amawebs.com/",
+        "description": "Centro Integral Médico Veterinario",
+        "name": "Cimev",
+        "opening_hours": "24/7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6646449,
+          4.5482844
+        ]
+      },
+      "id": "node/3570301178"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/3630175570",
+        "amenity": "veterinary"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6529728,
+          4.5574678
+        ]
+      },
+      "id": "node/3630175570"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4929667621",
+        "addr:street": "Barrio Los Quindos Mz 13 casa 1",
+        "amenity": "veterinary",
+        "name": "Amigos y Mascotas",
+        "name:es": "Amigos y Mascotas"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.702694,
+          4.5226866
+        ]
+      },
+      "id": "node/4929667621"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5108619231",
+        "amenity": "veterinary",
+        "name": "Salud Animal"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6429497,
+          4.5253815
+        ]
+      },
+      "id": "node/5108619231"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5237242611",
+        "amenity": "veterinary",
+        "name": "Conexión Animal"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6404267,
+          4.5318158
+        ]
+      },
+      "id": "node/5237242611"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7685507187",
+        "amenity": "veterinary",
+        "name": "Animal Home"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6399362,
+          4.5297532
+        ]
+      },
+      "id": "node/7685507187"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9330607984",
+        "addr:city": "Armenia",
+        "addr:housenumber": "15 59",
+        "addr:postcode": "630004",
+        "addr:street": "Calle 14",
+        "amenity": "veterinary",
+        "name": "veterinaria mi hacienda",
+        "opening_hours": "24/7",
+        "phone": "+57 3117195765",
+        "website": "https://mi-hacienda-veterinaria.negocio.site/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6706888,
+          4.5362927
+        ]
+      },
+      "id": "node/9330607984"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9709718459",
+        "amenity": "veterinary"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6980973,
+          4.5208554
+        ]
+      },
+      "id": "node/9709718459"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/9846761868",
+        "amenity": "veterinary",
+        "name": "Fundavet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6412047,
+          4.5312951
+        ]
+      },
+      "id": "node/9846761868"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11810840763",
+        "amenity": "veterinary",
+        "name": "Veterlandia",
+        "name:en": "Veterinarian - Jhon Fredy Zapata Giraldo",
+        "name:es": "Veterinario - Jhon Fredy Zapata Giraldo",
+        "phone": "3153828536"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.6614842,
+          4.6722631
+        ]
+      },
+      "id": "node/11810840763"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12193566457",
+        "amenity": "veterinary"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.657175,
+          4.5553298
+        ]
+      },
+      "id": "node/12193566457"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12585498987",
+        "addr:city": "Armenia",
+        "addr:housenumber": "10 15",
+        "addr:postcode": "630008",
+        "addr:street": "Carrera 22 a",
+        "amenity": "veterinary",
+        "name": "Vetsy",
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "phone": "302 8608177"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.672428,
+          4.5441564
+        ]
+      },
+      "id": "node/12585498987"
+    }
+  ]
+}
