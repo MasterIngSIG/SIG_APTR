@@ -618,8 +618,8 @@ function refrescarMapa() {
 function cargarTodo() {
   Promise.all([
     fetchGeoJSON([
-      "datos/Agresiones_APTR_Quindio_2025_2.geojson",
-      "Agresiones_APTR_Quindio_2025_2.geojson"
+      "datos/Agresiones_APTR_Quindio_2026_2.geojson",
+      "Agresiones_APTR_Quindio_2026_2.geojson"
     ]),
     fetchGeoJSON([
       "datos/Veterinarias_Quindio.geojson",
