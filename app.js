@@ -78,6 +78,9 @@ var totalDentroRadio = 0;
 // Panel móvil
 var panelMobileAbierto = false;
 
+// Panel móvil
+var panelMobileAbierto = false;
+
 // =============================
 // UTILIDADES
 // =============================
@@ -399,6 +402,58 @@ function definirPuntoAnalisis(latlng) {
   puntoAnalisis = latlng;
   actualizarGeometriaAnalisis();
   aplicarFiltros();
+}
+
+function esMovil() {
+  return window.innerWidth <= 640;
+}
+
+function abrirPanelMobile() {
+  if (!esMovil()) return;
+
+  var panel = document.getElementById("panel-filtros");
+  var boton = document.getElementById("btnTogglePanelMobile");
+
+  panel.classList.add("abierto");
+  panelMobileAbierto = true;
+
+  if (boton) {
+    boton.setAttribute("aria-expanded", "true");
+  }
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 260);
+}
+
+function cerrarPanelMobile() {
+  var panel = document.getElementById("panel-filtros");
+  var boton = document.getElementById("btnTogglePanelMobile");
+
+  panel.classList.remove("abierto");
+  panelMobileAbierto = false;
+
+  if (boton) {
+    boton.setAttribute("aria-expanded", "false");
+  }
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 260);
+}
+
+function alternarPanelMobile() {
+  if (panelMobileAbierto) {
+    cerrarPanelMobile();
+  } else {
+    abrirPanelMobile();
+  }
+}
+
+function cerrarPanelSiMovil() {
+  if (esMovil()) {
+    cerrarPanelMobile();
+  }
 }
 
 // =============================
