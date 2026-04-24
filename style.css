@@ -19,6 +19,12 @@ body {
   width: 100%;
   height: 100vh;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Botón flotante móvil */
+.btn-panel-mobile {
+  display: none;
 }
 
 /* Panel izquierda */
@@ -33,6 +39,16 @@ body {
   padding: 18px 16px;
   border-right: 1px solid #d9dee3;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+/* Encabezado móvil del panel */
+.panel-header-mobile {
+  display: block;
+}
+
+.btn-cerrar-panel {
+  display: none;
 }
 
 /* Mapa derecha */
@@ -85,15 +101,15 @@ body {
 
 .panel-filtros select,
 .panel-filtros input[type="text"] {
-  padding: 9px 10px;
+  padding: 10px 12px;
   border: 1px solid #cfcfcf;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 14px;
   background: #fff;
 }
 
 .panel-filtros input[type="range"] {
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .texto-ayuda {
@@ -116,8 +132,8 @@ body {
 
 .grupo-botones button {
   border: none;
-  border-radius: 6px;
-  padding: 10px 8px;
+  border-radius: 8px;
+  padding: 11px 10px;
   cursor: pointer;
   background: #1f78b4;
   color: white;
@@ -172,10 +188,11 @@ body {
 .leyenda {
   background: white;
   padding: 10px 14px;
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
-  line-height: 1.9;
+  line-height: 1.7;
   font-size: 13px;
+  max-width: 220px;
 }
 
 .leyenda h4 {
@@ -201,6 +218,16 @@ body {
   font-size: 12px;
 }
 
+.leaflet-popup-content {
+  margin: 10px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 10px;
+}
+
 .icono-servicio,
 .icono-analisis {
   background: transparent;
@@ -211,7 +238,7 @@ body {
 }
 
 /* =========================
-   RESPONSIVE
+   TABLET
 ========================= */
 @media (max-width: 992px) {
   .app-layout {
@@ -223,7 +250,7 @@ body {
     width: 100%;
     max-width: none;
     min-width: 0;
-    height: 38vh;
+    height: 32vh;
     border-right: none;
     border-bottom: 1px solid #d9dee3;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
@@ -232,24 +259,192 @@ body {
   .map-wrapper {
     flex: none;
     width: 100%;
-    height: 62vh;
+    height: 68vh;
   }
 }
 
+/* =========================
+   MÓVIL
+========================= */
 @media (max-width: 640px) {
+  body {
+    overflow: hidden;
+  }
+
+  .app-layout {
+    display: block;
+    height: 100vh;
+  }
+
+  .map-wrapper,
+  #map {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .btn-panel-mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 1200;
+    border: none;
+    border-radius: 999px;
+    background: #1f78b4;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  }
+
+  .panel-filtros {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(88vw, 360px);
+    height: 100vh;
+    max-width: none;
+    min-width: 0;
+    border-right: 1px solid #d9dee3;
+    border-bottom: none;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.18);
+    transform: translateX(-102%);
+    transition: transform 0.25s ease;
+    padding: 14px 14px 24px;
+  }
+
+  .panel-filtros.abierto {
+    transform: translateX(0);
+  }
+
+  .panel-header-mobile {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .btn-cerrar-panel {
+    display: inline-flex;
+    border: none;
+    border-radius: 8px;
+    background: #6c757d;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 8px 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .titulo-principal {
+    text-align: left;
+    font-size: 16px;
+    margin: 0 0 10px 0;
+  }
+
+  .panel-filtros h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
   .grupo-botones {
     grid-template-columns: 1fr;
   }
 
-  .panel-filtros {
-    padding: 14px;
+  .grupo-botones button {
+    font-size: 13px;
+    padding: 12px 10px;
   }
 
-  .titulo-principal {
-    font-size: 18px;
+  .panel-filtros select,
+  .panel-filtros input[type="text"] {
+    font-size: 16px;
   }
 
-  .panel-filtros h3 {
-    font-size: 17px;
+  .texto-ayuda,
+  .estado-proximidad,
+  .contador-resultados {
+    font-size: 12px;
   }
+
+  .leaflet-top.leaflet-left {
+    top: 56px;
+  }
+
+  .leaflet-control-layers {
+    max-width: 210px;
+    font-size: 11px;
+  }
+
+  .leaflet-control-layers-expanded {
+    padding: 8px 10px;
+  }
+
+  .leyenda {
+    font-size: 11px;
+    line-height: 1.45;
+    padding: 8px 10px;
+    max-width: 165px;
+  }
+
+  .leyenda h4 {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .leaflet-popup-content {
+    font-size: 12px;
+    line-height: 1.35;
+    margin: 8px 10px;
+    max-width: 200px;
+  }
+
+  .leaflet-control-scale {
+    margin-bottom: 42px !important;
+  }
+}
+/* =========================
+   POPUPS CON METADATOS
+========================= */
+.popup-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  margin-top: 6px;
+}
+
+.tabla-popup {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+
+.tabla-popup th,
+.tabla-popup td {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 4px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabla-popup th {
+  width: 42%;
+  background: #f6f8fa;
+  font-weight: bold;
+}
+
+
+/* =========================
+   POPUP APTR COMPACTO
+========================= */
+.popup-aptr {
+  min-width: 180px;
+}
+
+.popup-aptr .popup-titulo {
+  font-weight: bold;
+  margin-bottom: 4px;
 }

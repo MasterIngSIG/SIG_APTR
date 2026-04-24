@@ -13,10 +13,19 @@
 </head>
 <body>
   <div class="app-layout">
+    <button id="btnTogglePanelMobile" class="btn-panel-mobile" type="button" aria-expanded="false">
+      Filtros
+    </button>
+
     <aside id="panel-filtros" class="panel-filtros">
-      <h2 class="titulo-principal">
-        SIG AGRESIONES DE ANIMALES POTENCIALMENTE TRANSMISORES DE RABIA
-      </h2>
+      <div class="panel-header-mobile">
+        <h2 class="titulo-principal">
+          SIG AGRESIONES DE ANIMALES POTENCIALMENTE TRANSMISORES DE RABIA
+        </h2>
+        <button id="btnCerrarPanelMobile" class="btn-cerrar-panel" type="button">
+          Cerrar
+        </button>
+      </div>
 
       <h3>Filtros del mapa</h3>
 

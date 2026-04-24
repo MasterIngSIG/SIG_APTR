@@ -41,11 +41,9 @@ leyenda.onAdd = function () {
     '<span style="background:#fe1900"></span> Exposición grave<br>' +
     '<span style="background:#fdae61"></span> Exposición leve<br>' +
     '<span style="background:#66bd63"></span> No exposición<br><br>' +
-
     "<h4>Servicios</h4>" +
     "🏥 Hospital<br>" +
     "🐶 Veterinaria<br><br>" +
-
     "<h4>Proximidad</h4>" +
     '<span style="background:#2b8cbe"></span> Centro / radio';
 
@@ -75,6 +73,10 @@ var modoRadioActivo = false;
 var puntoAnalisis = null;
 var marcadorAnalisis = null;
 var circuloAnalisis = null;
+var totalDentroRadio = 0;
+
+// Panel móvil
+var panelMobileAbierto = false;
 
 // =============================
 // UTILIDADES
@@ -85,13 +87,128 @@ function normalizarValor(valor) {
   return String(valor).trim();
 }
 
-function colorPorAgresion(valor) {
-  valor = normalizarValor(valor);
+function hacerZoomACapaAgresiones() {
+  if (capaAgresiones && capaAgresiones.getLayers().length > 0) {
+    map.fitBounds(capaAgresiones.getBounds(), {
+      padding: [30, 30],
+      maxZoom: 15
+    });
+  }
+}
 
-  if (!valor) return "#66bd63";
-  if (valor === "Exposición grave") return "#fe1900";
-  if (valor === "Exposición leve") return "#fdae61";
-  if (valor === "No exposición") return "#66bd63";
+function limpiarClave(valor) {
+  return String(valor || "")
+    .replace(/^\d+_/, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function obtenerPropiedad(props, nombres) {
+  props = props || {};
+
+  for (var i = 0; i < nombres.length; i++) {
+    if (Object.prototype.hasOwnProperty.call(props, nombres[i])) {
+      return props[nombres[i]];
+    }
+  }
+
+  var claves = Object.keys(props);
+  var objetivos = nombres.map(limpiarClave);
+
+  for (var j = 0; j < claves.length; j++) {
+    var claveLimpia = limpiarClave(claves[j]);
+
+    for (var k = 0; k < objetivos.length; k++) {
+      if (claveLimpia === objetivos[k] || claveLimpia.endsWith(objetivos[k])) {
+        return props[claves[j]];
+      }
+    }
+  }
+
+  return "";
+}
+
+function escaparHTML(valor) {
+  return normalizarValor(valor)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function valorTipoExposicion(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "TIPO_DE_EXPOSICION",
+    "2_TIPO_DE_EXPOSICION",
+    "Tipo de exposición",
+    "Tipo_de_exposicion",
+    "tipo_exposicion"
+  ]));
+}
+
+function valorMunicipio(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "Municipio",
+    "10_Municipio"
+  ]));
+}
+
+function valorEspecie(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "Especie",
+    "14_Especie"
+  ]));
+}
+
+function valorFechaAgresion(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "Fecha_de_agresin",
+    "Fecha_de_agresión",
+    "Fecha_de_agresion",
+    "6_Fecha_de_agresin",
+    "6_Fecha_de_agresión",
+    "6_Fecha_de_agresion"
+  ]));
+}
+
+function valorDireccion(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "Direccin",
+    "Dirección",
+    "Direccion",
+    "13_Direccin",
+    "13_Dirección",
+    "13_Direccion"
+  ]));
+}
+
+function valorTipoLocalizacion(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "Tipo_de_localizaci",
+    "Tipo_de_localización",
+    "Tipo_de_localizacion",
+    "9_Tipo_de_localizaci",
+    "9_Tipo_de_localización",
+    "9_Tipo_de_localizacion"
+  ]));
+}
+
+function valorObservaciones(feature) {
+  return normalizarValor(obtenerPropiedad(feature.properties, [
+    "Observaciones",
+    "22_Observaciones"
+  ]));
+}
+
+function colorPorAgresion(valor) {
+  valor = normalizarValor(valor).toLowerCase();
+
+  if (valor === "exposición grave" || valor === "exposicion grave") return "#fe1900";
+  if (valor === "exposición leve" || valor === "exposicion leve") return "#fdae61";
+  if (valor === "no exposición" || valor === "no exposicion") return "#66bd63";
 
   return "#66bd63";
 }
@@ -112,7 +229,12 @@ function poblarSelect(id, valores, textoTodos) {
 
 function actualizarContador(total) {
   var contador = document.getElementById("contadorResultados");
-  if (contador) {
+  if (!contador) return;
+
+  if (modoRadioActivo && puntoAnalisis) {
+    contador.textContent =
+      "Casos visibles: " + total + " | Dentro del radio: " + totalDentroRadio;
+  } else {
     contador.textContent = "Casos visibles: " + total;
   }
 }
@@ -173,27 +295,49 @@ function obtenerLatLngDeFeature(feature) {
     Array.isArray(feature.geometry.coordinates)
   ) {
     var coords = feature.geometry.coordinates;
-    return L.latLng(coords[1], coords[0]);
+    var lng = Number(coords[0]);
+    var lat = Number(coords[1]);
+
+    if (Number.isFinite(lat) && Number.isFinite(lng)) {
+      return L.latLng(lat, lng);
+    }
   }
 
   return null;
 }
 
 function crearPopupAgresion(feature) {
-  var p = feature.properties || {};
+  var tipo = valorTipoExposicion(feature) || "Sin clasificación";
+  var municipio = valorMunicipio(feature) || "Sin dato";
+  var especie = valorEspecie(feature) || "Sin dato";
+  var fechaAgresion = valorFechaAgresion(feature) || "Sin dato";
+  var direccion = valorDireccion(feature) || "Sin dato";
+  var tipoLocalizacion = valorTipoLocalizacion(feature) || "Sin dato";
 
   return (
-    "<b>" + normalizarValor(p.TIPO_DE_EXPOSICION) + "</b><br>" +
-    "Municipio: " + normalizarValor(p.Municipio) + "<br>" +
-    "Fecha de agresión: " + normalizarValor(p.Fecha_de_agresin) + "<br>" +
-    "Fecha de visita: " + normalizarValor(p.Fecha_de_visita) + "<br>" +
-    "Dirección: " + normalizarValor(p.Direccin) + "<br>" +
-    "Especie: " + normalizarValor(p.Especie)
+    '<div class="popup-aptr">' +
+    "<b>" + escaparHTML(tipo) + "</b><br>" +
+    "Municipio: " + escaparHTML(municipio) + "<br>" +
+    "Especie: " + escaparHTML(especie) + "<br>" +
+    "Fecha de agresión: " + escaparHTML(fechaAgresion) + "<br>" +
+    "Dirección: " + escaparHTML(direccion) + "<br>" +
+    "Tipo de localización: " + escaparHTML(tipoLocalizacion) +
+    "</div>"
   );
 }
 
+function crearPopupServicio(feature, tipoServicio) {
+  var p = feature.properties || {};
+  var nombre = normalizarValor(p.name) || tipoServicio;
+  return "<b>" + escaparHTML(nombre) + "</b>";
+}
+
+// =============================
+// PROXIMIDAD
+// =============================
 function limpiarAnalisisProximidad() {
   puntoAnalisis = null;
+  totalDentroRadio = 0;
 
   if (marcadorAnalisis) {
     map.removeLayer(marcadorAnalisis);
@@ -258,6 +402,61 @@ function definirPuntoAnalisis(latlng) {
 }
 
 // =============================
+// PANEL MÓVIL
+// =============================
+function esMovil() {
+  return window.innerWidth <= 640;
+}
+
+function abrirPanelMobile() {
+  if (!esMovil()) return;
+
+  var panel = document.getElementById("panel-filtros");
+  var boton = document.getElementById("btnTogglePanelMobile");
+
+  panel.classList.add("abierto");
+  panelMobileAbierto = true;
+
+  if (boton) {
+    boton.setAttribute("aria-expanded", "true");
+  }
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 260);
+}
+
+function cerrarPanelMobile() {
+  var panel = document.getElementById("panel-filtros");
+  var boton = document.getElementById("btnTogglePanelMobile");
+
+  panel.classList.remove("abierto");
+  panelMobileAbierto = false;
+
+  if (boton) {
+    boton.setAttribute("aria-expanded", "false");
+  }
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 260);
+}
+
+function alternarPanelMobile() {
+  if (panelMobileAbierto) {
+    cerrarPanelMobile();
+  } else {
+    abrirPanelMobile();
+  }
+}
+
+function cerrarPanelSiMovil() {
+  if (esMovil()) {
+    cerrarPanelMobile();
+  }
+}
+
+// =============================
 // DIBUJO DE CAPAS
 // =============================
 function dibujarAgresiones(coleccion) {
@@ -265,24 +464,41 @@ function dibujarAgresiones(coleccion) {
     map.removeLayer(capaAgresiones);
   }
 
+  totalDentroRadio = 0;
+  var radio = obtenerRadioActual();
+
   capaAgresiones = L.geoJSON(coleccion, {
     pointToLayer: function (feature, latlng) {
+      var colorBase = colorPorAgresion(valorTipoExposicion(feature));
+      var dentroRadio = true;
+
+      if (modoRadioActivo && puntoAnalisis) {
+        dentroRadio = map.distance(puntoAnalisis, latlng) <= radio;
+        if (dentroRadio) totalDentroRadio++;
+      }
+
       return L.circleMarker(latlng, {
-        radius: 7,
-        fillColor: colorPorAgresion(feature.properties.TIPO_DE_EXPOSICION),
-        color: "#2c3e50",
-        weight: 1.5,
-        opacity: 1,
-        fillOpacity: 0.75
+        radius: dentroRadio ? (esMovil() ? 9 : 8) : (esMovil() ? 6 : 5),
+        fillColor: colorBase,
+        color: dentroRadio ? "#111111" : "#7f8c8d",
+        weight: dentroRadio ? 2.2 : 0.8,
+        opacity: dentroRadio ? 1 : 0.45,
+        fillOpacity: dentroRadio ? 0.90 : 0.25
       });
     },
     onEachFeature: function (feature, layer) {
-      layer.bindPopup(crearPopupAgresion(feature));
+      layer.bindPopup(crearPopupAgresion(feature), {
+        maxWidth: 320
+      });
 
       layer.on("click", function () {
         if (modoRadioActivo) {
           definirPuntoAnalisis(layer.getLatLng());
         }
+      });
+
+      layer.on("popupopen", function () {
+        cerrarPanelSiMovil();
       });
     }
   }).addTo(map);
@@ -308,19 +524,22 @@ function dibujarVeterinarias() {
         icon: L.divIcon({
           html: "🐶",
           className: "icono-servicio",
-          iconSize: [34, 34],
-          iconAnchor: [17, 34]
+          iconSize: esMovil() ? [32, 32] : [34, 34],
+          iconAnchor: esMovil() ? [16, 32] : [17, 34]
         })
       });
     },
     onEachFeature: function (feature, layer) {
-      var p = feature.properties || {};
-      layer.bindPopup("<b>" + normalizarValor(p.name) + "</b>");
+      layer.bindPopup(crearPopupServicio(feature, "Veterinaria"));
 
       layer.on("click", function () {
         if (modoRadioActivo) {
           definirPuntoAnalisis(layer.getLatLng());
         }
+      });
+
+      layer.on("popupopen", function () {
+        cerrarPanelSiMovil();
       });
     }
   }).addTo(map);
@@ -345,22 +564,22 @@ function dibujarHospitales() {
         icon: L.divIcon({
           html: "🏥",
           className: "icono-servicio",
-          iconSize: [34, 34],
-          iconAnchor: [17, 34]
+          iconSize: esMovil() ? [32, 32] : [34, 34],
+          iconAnchor: esMovil() ? [16, 32] : [17, 34]
         })
       });
     },
     onEachFeature: function (feature, layer) {
-      var p = feature.properties || {};
-      layer.bindPopup(
-        "<b>" + normalizarValor(p.name) + "</b><br>" +
-        "Especialidad: " + normalizarValor(p.healthcare || p.amenity)
-      );
+      layer.bindPopup(crearPopupServicio(feature, "Hospital"));
 
       layer.on("click", function () {
         if (modoRadioActivo) {
           definirPuntoAnalisis(layer.getLatLng());
         }
+      });
+
+      layer.on("popupopen", function () {
+        cerrarPanelSiMovil();
       });
     }
   }).addTo(map);
@@ -391,7 +610,7 @@ function actualizarControlCapas() {
   if (marcadorAnalisis) overlays["Centro de análisis"] = marcadorAnalisis;
 
   controlCapas = L.control.layers(baseLayers, overlays, {
-    collapsed: false
+    collapsed: esMovil()
   }).addTo(map);
 }
 
@@ -405,48 +624,36 @@ function aplicarFiltros() {
   var tipo = document.getElementById("filtroTipo").value;
   var especie = document.getElementById("filtroEspecie").value;
   var texto = document.getElementById("filtroTexto").value.toLowerCase().trim();
-  var radio = obtenerRadioActual();
 
   var filtrados = datosAgresiones.features.filter(function (feature) {
-    var p = feature.properties || {};
-
-    var municipioValor = normalizarValor(p.Municipio);
-    var tipoValor = normalizarValor(p.TIPO_DE_EXPOSICION);
-    var especieValor = normalizarValor(p.Especie);
-
-    var direccionValor = normalizarValor(p.Direccin).toLowerCase();
-    var observacionesValor = normalizarValor(p.Observaciones).toLowerCase();
-    var municipioTexto = municipioValor.toLowerCase();
+    var municipioValor = valorMunicipio(feature);
+    var tipoValor = valorTipoExposicion(feature);
+    var especieValor = valorEspecie(feature);
+    var direccionValor = valorDireccion(feature).toLowerCase();
+    var observacionesValor = valorObservaciones(feature).toLowerCase();
+    var tipoLocalizacionValor = valorTipoLocalizacion(feature).toLowerCase();
 
     var cumpleTexto =
       !texto ||
       direccionValor.includes(texto) ||
       observacionesValor.includes(texto) ||
-      municipioTexto.includes(texto);
+      municipioValor.toLowerCase().includes(texto) ||
+      especieValor.toLowerCase().includes(texto) ||
+      tipoLocalizacionValor.includes(texto);
 
     var cumpleMunicipio = !municipio || municipioValor === municipio;
     var cumpleTipo = !tipo || tipoValor === tipo;
     var cumpleEspecie = !especie || especieValor === especie;
-    var cumpleGrave = !soloGravesActivo || tipoValor === "Exposición grave";
-
-    var cumpleRadio = true;
-
-    if (modoRadioActivo && puntoAnalisis) {
-      var latlngFeature = obtenerLatLngDeFeature(feature);
-
-      if (latlngFeature) {
-        var distancia = map.distance(puntoAnalisis, latlngFeature);
-        cumpleRadio = distancia <= radio;
-      }
-    }
+    var cumpleGrave =
+      !soloGravesActivo ||
+      colorPorAgresion(tipoValor) === "#fe1900";
 
     return (
       cumpleMunicipio &&
       cumpleTipo &&
       cumpleEspecie &&
       cumpleTexto &&
-      cumpleGrave &&
-      cumpleRadio
+      cumpleGrave
     );
   });
 
@@ -490,11 +697,9 @@ function prepararFiltros() {
   var especies = [];
 
   datosAgresiones.features.forEach(function (feature) {
-    var p = feature.properties || {};
-
-    var municipio = normalizarValor(p.Municipio);
-    var tipo = normalizarValor(p.TIPO_DE_EXPOSICION);
-    var especie = normalizarValor(p.Especie);
+    var municipio = valorMunicipio(feature);
+    var tipo = valorTipoExposicion(feature);
+    var especie = valorEspecie(feature);
 
     if (municipio) municipios.push(municipio);
     if (tipo) tipos.push(tipo);
@@ -544,18 +749,23 @@ function ajustarVistaInicial() {
   }
 }
 
+function refrescarMapa() {
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 250);
+}
+
 function cargarTodo() {
   Promise.all([
     fetchGeoJSON([
-      "datos/Agresiones_APTR_Quindio_2025_2.geojson",
-      "Agresiones_APTR_Quindio_2025_2.geojson"
+      "datos/Agresiones_APTR_2025-2026.geojson",
+      "Agresiones_APTR_2025-2026.geojson"
     ]),
     fetchGeoJSON([
       "datos/Veterinarias_Quindio.geojson",
       "Veterinarias_Quindio.geojson"
     ]),
     fetchGeoJSON([
-      "datos/Clinicas_Quindio.geojson",
       "datos/Hospitales_Quindio.geojson",
       "Hospitales_Quindio.geojson"
     ])
@@ -573,6 +783,7 @@ function cargarTodo() {
       actualizarTextoBotones();
       actualizarControlCapas();
       ajustarVistaInicial();
+      refrescarMapa();
     })
     .catch(function (error) {
       console.error("Error cargando capas:", error);
@@ -586,9 +797,26 @@ function cargarTodo() {
 document.addEventListener("DOMContentLoaded", function () {
   cargarTodo();
 
-  document.getElementById("filtroMunicipio").addEventListener("change", aplicarFiltros);
-  document.getElementById("filtroTipo").addEventListener("change", aplicarFiltros);
-  document.getElementById("filtroEspecie").addEventListener("change", aplicarFiltros);
+  document.getElementById("filtroMunicipio").addEventListener("change", function () {
+  aplicarFiltros();
+
+  setTimeout(function () {
+    hacerZoomACapaAgresiones();
+  }, 100);
+
+  cerrarPanelSiMovil();
+});
+
+  document.getElementById("filtroTipo").addEventListener("change", function () {
+    aplicarFiltros();
+    cerrarPanelSiMovil();
+  });
+
+  document.getElementById("filtroEspecie").addEventListener("change", function () {
+    aplicarFiltros();
+    cerrarPanelSiMovil();
+  });
+
   document.getElementById("filtroTexto").addEventListener("input", aplicarFiltros);
 
   document.getElementById("filtroRadio").addEventListener("input", function () {
@@ -604,18 +832,21 @@ document.addEventListener("DOMContentLoaded", function () {
     soloGravesActivo = !soloGravesActivo;
     actualizarTextoBotones();
     aplicarFiltros();
+    cerrarPanelSiMovil();
   });
 
   document.getElementById("btnToggleHospitales").addEventListener("click", function () {
     hospitalesVisibles = !hospitalesVisibles;
     actualizarTextoBotones();
     dibujarHospitales();
+    cerrarPanelSiMovil();
   });
 
   document.getElementById("btnToggleVeterinarias").addEventListener("click", function () {
     veterinariasVisibles = !veterinariasVisibles;
     actualizarTextoBotones();
     dibujarVeterinarias();
+    cerrarPanelSiMovil();
   });
 
   document.getElementById("btnModoRadio").addEventListener("click", function () {
@@ -626,6 +857,7 @@ document.addEventListener("DOMContentLoaded", function () {
       actualizarEstadoProximidad(
         "Modo radio activo: haga clic en el mapa o en un elemento para definir el centro."
       );
+      cerrarPanelSiMovil();
     } else {
       limpiarAnalisisProximidad();
       actualizarEstadoProximidad("Modo radio inactivo");
@@ -633,11 +865,28 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  document.getElementById("btnLimpiar").addEventListener("click", limpiarFiltros);
+  document.getElementById("btnLimpiar").addEventListener("click", function () {
+    limpiarFiltros();
+    cerrarPanelSiMovil();
+  });
+
+  document.getElementById("btnTogglePanelMobile").addEventListener("click", alternarPanelMobile);
+  document.getElementById("btnCerrarPanelMobile").addEventListener("click", cerrarPanelMobile);
 
   map.on("click", function (e) {
     if (modoRadioActivo) {
       definirPuntoAnalisis(e.latlng);
+      cerrarPanelSiMovil();
+    }
+  });
+
+  window.addEventListener("resize", function () {
+    actualizarControlCapas();
+    refrescarMapa();
+
+    if (!esMovil()) {
+      document.getElementById("panel-filtros").classList.remove("abierto");
+      panelMobileAbierto = false;
     }
   });
 });
